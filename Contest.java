@@ -640,7 +640,7 @@ public class Contest {
                 @Override
                 public String convert(String input) {
 
-                    if (input.length() > 10) {
+                    if (input.length() < 10) {
                         return complement(input);
                     } else {
                         int split = input.length() / 2;
