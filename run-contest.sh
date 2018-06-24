@@ -1,20 +1,7 @@
 #!/bin/bash
 
-# compile
-javac Contest.java
+for i in 8 9 10
+do
+   ./run-contest-java${i}.sh >example-run-java${i}.txt 2>&1 
+done
 
-# run
-echo "Running with:"
-java -version 2>&1
-echo
-
-java Contest 2>&1
-
-# cleanup
-rm -rf Contest*.class
-
-# system info
-echo
-echo "CPU info (available if on linux)"
-grep -e "model name" -e "bogo" /proc/cpuinfo  | sort -u
-echo

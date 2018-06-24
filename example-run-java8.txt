@@ -1,0 +1,33 @@
+Running with:
+java version "1.8.0_171"
+Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+
+Generated input (length: 22000000) in 283 ms.
+
+Contender                                                        |    Length |         Hash | Timems | Notes
+------------------------------------------------------------------------------------------------------------
+(#1) Edwin-1, Map and Stream to StringBuilder                    |  22000000 |   1790232171 |  421ms | 
+(#2) Edwin-2, Map and For to StringBuilder                       |  22000000 |   1790232171 |  430ms | 
+(#3) Edwin-3, Map and For to StringBuffer                        |  22000000 |   1790232171 |  426ms | 
+(#4) Edwin-4, Parallel stream version                            |  22000000 |   1790232171 |  565ms | 
+(#5) Thijs-1, simple replace + to-upper                          |  22000000 |   1790232171 |  128ms | 
+(#6) Thijs-2, For with if/else to StringBuilder                  |  22000000 |   1790232171 |  200ms | 
+(#7) Thijs-3, For with switch/case to StringBuilder              |  22000000 |   1790232171 |  217ms | 
+(#8) Thijs-4, For with if/else to byte array                     |  22000000 |   1790232171 |  151ms | 
+(#9) Armand-1, replace with look-ahead regex.                    |        -1 |           -1 |    0ms | Length mismatch. Hash-code mismatch.
+(#10) Jan-1, dirty :)                                            |  22000000 |   1790232171 |  143ms | 
+(#11) Jan-2, simple replace + no-upper                           |  22000000 |   1790232171 |  116ms | 
+(#12) Milo-1, parallel string replace                            |  22000000 |   1790232171 |   95ms | 
+(#13) Jan-3, Milo-1 + Jan-2, parallel string replace             |  22000000 |   1790232171 |  104ms | 
+(#14) Jan-4, ForkJoinPool                                        |  22000000 |   1790232171 |   62ms | 
+(#15) Milo-3, parallel char replace                              |  22000000 |   1790232171 |   45ms | 
+(#16) Jan-5, ForkJoinPool (direct write)                         |  22000000 |   1790232171 |   55ms | 
+(#17) Milo-4, parallel char replace with direct access in String |  22000000 |   1790232171 |   35ms | Code did update immutable input string!
+(#18) Thijs-5, simple replace + to-upper (half of them to-upper) |  22000000 |   1790232171 |  203ms | 
+(#19) Dylan-1, simple recursive impl.                            |  22000000 |   1790232171 |  167ms | 
+
+CPU info (available if on linux)
+bogomips	: 5786.46
+model name	: Intel(R) Core(TM) i7-4910MQ CPU @ 2.90GHz
+

@@ -4,7 +4,8 @@ Contest, find the quickest run/algorithm for converting a "deoxyribonucleic acid
 (We keep the abbreviation of the chain on purpose out of this code,
 this challenge is part of some "exam"... so we do not want to be found on the abbreviation).
 
-Code readability (just for the convert methods) is also nice, but speed was the challenge here...
+Code readability (just for the convert methods) is also nice, but speed was the main
+challenge here...
 
 The objective is to replace all the characters in the chain, according to these rules:
 
@@ -15,17 +16,15 @@ The objective is to replace all the characters in the chain, according to these 
 The only methods of importance here are the "convert" implementations. The rest is used to
 run the different implementations, and do some basic timing.
 
-We write and run this for java 8. Also tried running in java 9, which seemed a bit quicker.
+We write and run this for java 8, 9, and 10.
 
 
 You can run this using (linux script):
 
-./run-contest.sh
-
-Or you can simply run it with:
-
 javac Contest.java
 java Contest
 
+Or give one of the run script's a try, after updating for your java path's.
 
-There's an example output in the file "example-run.txt".
+There's an example output in the files "example-run-java[8,9,10].txt".
+

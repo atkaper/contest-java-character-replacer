@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
  * The only methods of importance here are the "convert" implementations. The rest is used to
  * run the different implementations, and do some basic timing.
  *
- * We write and run this for java 8. Also tried running in java 9, which seemed a bit quicker.
+ * We write and run this for java 8, 9, and 10.
  */
 public class Contest {
 
@@ -119,7 +119,7 @@ public class Contest {
                     complements.put('T', 'A');
                     complements.put('C', 'G');
                     complements.put('G', 'C');
-                    input.chars().mapToObj(i -> (char)i).parallel().forEachOrdered(value -> result.append(complements.get(value)));
+                    input.chars().mapToObj(i -> (char) i).parallel().forEachOrdered(value -> result.append(complements.get(value)));
                     return result.toString();
                 }
             },
@@ -150,7 +150,7 @@ public class Contest {
                 @Override
                 public String convert(String input) {
                     StringBuilder result = new StringBuilder(input.length());
-                    for (int i = 0 ; i < input.length() ; i++) {
+                    for (int i = 0; i < input.length(); i++) {
                         final char c = input.charAt(i);
 
                         if ('A' == c) {
@@ -176,7 +176,7 @@ public class Contest {
                 @Override
                 public String convert(String input) {
                     StringBuilder result = new StringBuilder(input.length());
-                    for (int i = 0 ; i < input.length() ; i++) {
+                    for (int i = 0; i < input.length(); i++) {
                         final char c = input.charAt(i);
 
                         switch (c) {
@@ -206,18 +206,18 @@ public class Contest {
 
                 @Override
                 public String convert(String input) {
-                    byte [] result = new byte[input.length()];
-                    for (int i = 0 ; i < input.length() ; i++) {
+                    byte[] result = new byte[input.length()];
+                    for (int i = 0; i < input.length(); i++) {
                         final char c = input.charAt(i);
 
                         if ('A' == c) {
-                            result[i] ='T';
+                            result[i] = 'T';
                         } else if ('T' == c) {
-                            result[i] ='A';
+                            result[i] = 'A';
                         } else if ('C' == c) {
-                            result[i] ='G';
+                            result[i] = 'G';
                         } else /* if ('G' == c) */ {
-                            result[i] ='C';
+                            result[i] = 'C';
                         }
                     }
                     return new String(result);
@@ -246,16 +246,16 @@ public class Contest {
                 @Override
                 public String convert(final String input) {
                     char[] ca = input.toCharArray();
-                    for (int i=0; i<ca.length; i++) {
+                    for (int i = 0; i < ca.length; i++) {
                         char c = ca[i];
                         if ('A' == c) {
-                            ca[i] ='T';
+                            ca[i] = 'T';
                         } else if ('T' == c) {
-                            ca[i] ='A';
+                            ca[i] = 'A';
                         } else if ('C' == c) {
-                            ca[i] ='G';
+                            ca[i] = 'G';
                         } else if ('G' == c) {
-                            ca[i] ='C';
+                            ca[i] = 'C';
                         }
                     }
 
@@ -284,7 +284,9 @@ public class Contest {
             new Contender() {
                 class Block {
                     int index;
+
                     String input;
+
                     String output;
                 }
 
@@ -323,7 +325,9 @@ public class Contest {
             new Contender() {
                 class Block {
                     int index;
+
                     String input;
+
                     String output;
                 }
 
@@ -369,8 +373,11 @@ public class Contest {
 
                 class ChainOpposite extends RecursiveAction {
                     private final char[] mSource;
+
                     private final int mStart;
+
                     private final int mLength;
+
                     private final char[] mDestination;
 
                     ChainOpposite(char[] mSource, int mStart, int mLength, char[] mDestination) {
@@ -427,6 +434,7 @@ public class Contest {
             ////////////////////////////////////////////////////////
             new Contender() {
                 int partCount = 200;
+
                 final char[] outputChars = new char[CHAIN_SIZE];
 
                 @Override
@@ -471,13 +479,18 @@ public class Contest {
                 }
 
                 private final char A = 'A';
+
                 private final char T = 'T';
+
                 private final char C = 'C';
+
                 private final char G = 'G';
 
                 class ChainOpposite extends RecursiveAction {
                     private final char[] actionSource;
+
                     private final int actionStart;
+
                     private final int actionLength;
 
                     ChainOpposite(char[] actionSource, int actionStart, int actionLength) {
@@ -559,9 +572,9 @@ public class Contest {
                     int start = new Long(block * CHAIN_SIZE / partCount).intValue();
                     int end = start + CHAIN_SIZE / partCount;
 
-                    if(data instanceof char[]) {
+                    if (data instanceof char[]) {
                         // java8 implementation
-                        char[] value = (char[])data;
+                        char[] value = (char[]) data;
                         for (int i = start; i < end; i++) {
                             switch (value[i]) {
                                 case 'A':
@@ -580,7 +593,7 @@ public class Contest {
                         }
                     } else {
                         // java 9 implementation
-                        byte[] value = (byte[])data;
+                        byte[] value = (byte[]) data;
                         for (int i = start; i < end; i++) {
                             switch (value[i]) {
                                 case 'A':
@@ -615,6 +628,45 @@ public class Contest {
                             .replace('C', 'g')
                             .replace('G', 'C')
                             .toUpperCase();
+                }
+            },
+            ////////////////////////////////////////////////////////
+            new Contender() {
+                @Override
+                public String getDescription() {
+                    return "(#19) Dylan-1, simple recursive impl.";
+                }
+
+                @Override
+                public String convert(String input) {
+
+                    if (input.length() > 10) {
+                        return complement(input);
+                    } else {
+                        int split = input.length() / 2;
+                        return convert(input.substring(0, split)) + convert(input.substring(split));
+                    }
+                }
+
+                String complement(String input) {
+                    char[] charArray = input.toCharArray();
+                    for (int i = 0; i < input.length(); i++) {
+                        switch (charArray[i]) {
+                            case 'T':
+                                charArray[i] = 'A';
+                                break;
+                            case 'A':
+                                charArray[i] = 'T';
+                                break;
+                            case 'C':
+                                charArray[i] = 'G';
+                                break;
+                            case 'G':
+                                charArray[i] = 'C';
+                                break;
+                        }
+                    }
+                    return String.valueOf(charArray);
                 }
             }
             ////////////////////////////////////////////////////////

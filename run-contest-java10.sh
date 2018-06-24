@@ -1,16 +1,16 @@
 #!/bin/bash
 
-J9=~/bin/java/jdk9/bin
+J10=~/bin/java/jdk10/bin
 
 # compile
-$J9/javac Contest.java
+$J10/javac Contest.java
 
 # run
 echo "Running with:"
-$J9/java -version 2>&1
+$J10/java -version 2>&1
 echo
 
-$J9/java Contest 2>&1
+$J10/java Contest 2>&1
 
 # cleanup
 rm -rf *Contest*.class*
